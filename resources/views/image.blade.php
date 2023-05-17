@@ -19,32 +19,30 @@
 
 
 
-	 <h1> Welcome {{Auth::user()->name}}, you are signed in !</h1>
-     <a href="{{route('logout')}}" class="btn btn-info" >Logout</a>
-
+	 
 
 
      <div class="container">
-     	    <form action="{{route('store_image')}}" method="post" enctype="multipart/form-data">
-     		@csrf
-     	<h2>Save Image to storage</h2>
+     	    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Image</th>
+     
+    </tr>
+  </thead>
+  <tbody>
 
-     	        <div class="mb-3">
-                  <input class="form-control" type="file" name="image">
-                 
-               </div>
-
-                <div class="form-row-last">
-				  <input type="submit" name="register" class="register mt-3" value="Submit">
-				   </div>
-
-        </form>
-        <a href="{{route('image')}}">Image</a>
-
+    @foreach($images as $image)
+    <tr>
+      <td> {{$image->id}} </td>
+      <td> <img src="{{asset('/storage/image/'.$image->image)}}">  </td>
+    
+    </tr>
+    @endforeach
+  </tbody>
+</table>
      </div>
-
-
-
 
 
 

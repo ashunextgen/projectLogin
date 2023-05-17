@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Image;
 
 use Auth;
 use Hash;
@@ -86,4 +87,37 @@ class LoginRegisterController extends Controller
           Auth::logout();
           return redirect('/login')->with('message','You are successfully Logged Out!');
       }
+
+
+
+      public function post_image(Request $request){
+
+
+      $image = new Image();
+
+     
+
+
+       if ($request->hasFile('image'))
+             {
+               
+                $img = $request->file('image');
+                $name= time().'.'.$img->extension();
+                $fileName=$name;
+                $img->storeAs('public/image', $fileName);
+                $image->image=$fileName;
+             }
+
+      $image->save();
+}
+
+
+public function image(){
+
+	$pics = Image::get();
+
+	
+
+	return view('image',['images'=>$pics]);
+}
 }
